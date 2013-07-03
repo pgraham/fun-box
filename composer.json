@@ -1,0 +1,25 @@
+{
+	"name": "zeptech/fun-box",
+	"type": "library",
+	"description": "Function collection",
+	"keywords": [ "utility", "functions" ],
+	"license": "BSD",
+	"authors": [
+		{
+			"name": "Philip Graham",
+			"email": "philip@zeptech.ca"
+		}
+	],
+	"autoload": {
+		"files": [
+			"src/announceWait.php",
+			"src/atomicSymlink.php",
+			"src/checkRoot.php",
+			"src/copyOwner.php",
+			"src/isHttps.php",
+			"src/mkdirOwner.php",
+			"src/passwordPrompt.php",
+			"src/symlinkInDir.php"
+		]
+	}
+}
