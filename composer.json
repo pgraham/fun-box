@@ -12,14 +12,7 @@
 	],
 	"autoload": {
 		"files": [
-			"src/announceWait.php",
-			"src/atomicSymlink.php",
-			"src/checkRoot.php",
-			"src/copyOwner.php",
-			"src/isHttps.php",
-			"src/mkdirOwner.php",
-			"src/passwordPrompt.php",
-			"src/symlinkInDir.php"
+			"src/ensureFn.php"
 		]
 	}
 }
