@@ -76,10 +76,10 @@ class GetcmdlnTest extends TestCase {
 
 		$this->assertObjectHasAttribute('argc', $cmdln);
 		$this->assertInternalType('int', $cmdln->argc);
-		$this->assertEquals(2, $cmdln->argc);
+		$this->assertEquals(3, $cmdln->argc);
 
-		$this->assertCount(2, $cmdln->argv);
-		$this->assertEquals(array('arg1', 'arg2'), $cmdln->argv);
+		$this->assertCount(3, $cmdln->argv);
+		$this->assertEquals(array('script.php', 'arg1', 'arg2'), $cmdln->argv);
 	}
 
 	public function testLongOptionsWithArgsExpectedOrder() {
@@ -106,9 +106,9 @@ class GetcmdlnTest extends TestCase {
 
 		$this->assertObjectHasAttribute('argc', $cmdln);
 		$this->assertInternalType('int', $cmdln->argc);
-		$this->assertEquals(2, $cmdln->argc);
+		$this->assertEquals(3, $cmdln->argc);
 
-		$this->assertCount(2, $cmdln->argv);
-		$this->assertEquals(array('arg1', 'arg2'), $cmdln->argv);
+		$this->assertCount(3, $cmdln->argv);
+		$this->assertEquals(array('script.php', 'arg1', 'arg2'), $cmdln->argv);
 	}
 }

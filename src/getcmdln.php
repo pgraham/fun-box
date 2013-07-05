@@ -38,10 +38,8 @@ class GetCmdln {
 	* @param array $longopts `longopts` argument to getopt()
 	*/
 	public static function parse($argv, $options, $longopts = array()) {
-		array_shift($argv);
-
 		$opts = array();
-		$args = array();
+		$args = array(array_shift($argv));
 		foreach ($argv as $arg) {
 			if (preg_match(self::LONG_OPT_RE, $arg, $matches)) {
 				$opts[$matches[1]] = $matches[2];
