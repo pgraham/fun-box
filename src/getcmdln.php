@@ -23,7 +23,7 @@ use \StdClass;
  */
 class GetCmdln {
 
-	const LONG_OPT_RE = '/--(\w+)(?:=(\S+))?/';
+	const LONG_OPT_RE = '/--([^=]+)(?:=(\S+))?/';
 
 	/**
 	* This function retrieves command line options and arguments.	Return format is 

@@ -43,6 +43,25 @@ class GetcmdlnTest extends TestCase {
 		$this->assertEquals('myvalue', $cmdln->opt['anotheroption']);
 	}
 
+	public function testLongOptionsHyphenated() {
+		$argv = array(
+			'script.php',
+			'--long-option=myvalue',
+			'--another-option=myvalue',
+		);
+		$cmdln = getcmdln($argv, array('long-option', 'another-option'));
+
+		$this->assertInstanceOf('StdClass', $cmdln);
+		$this->assertObjectHasAttribute('opt', $cmdln);
+		$this->assertInternalType('array', $cmdln->opt);
+
+		$this->assertArrayHasKey('long-option', $cmdln->opt);
+		$this->assertEquals('myvalue', $cmdln->opt['long-option']);
+		$this->assertArrayHasKey('another-option', $cmdln->opt);
+		$this->assertEquals('myvalue', $cmdln->opt['another-option']);
+
+	}
+
 	public function testArgs() {
 		$argv = array(
 			'script.php',
