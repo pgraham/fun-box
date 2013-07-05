@@ -11,8 +11,6 @@
 		}
 	],
 	"autoload": {
-		"files": [
-			"src/ensureFn.php"
-		]
+		"files": [ "src/ensureFn.php" ]
 	}
 }
