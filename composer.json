@@ -11,6 +11,7 @@
 		}
 	],
 	"autoload": {
-		"files": [ "src/ensureFn.php" ]
+		"files": [ "src/ensureFn.php" ],
+		"psr-0": { "FunBox": "src/" }
 	}
 }
