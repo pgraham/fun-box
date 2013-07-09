@@ -50,3 +50,26 @@ function repo_is_clean($path) {
 		return true;
 	}
 }
+
+/**
+ * Export the specified repo to the specified location.
+ *
+ * @param string $src
+ * @param string $dest
+ * @param array $opts - Options specific to the type of repository being
+ *   exported.
+ * @return boolean
+ */
+function repo_export($src, $dest, array $opts = null) {
+	if (is_git_repo($src)) {
+		$prefix = isset($opts['prefix'])
+			? $opts['prefix']
+			: null;
+		export_git_repo($src, $dest, $prefix);
+		return true;
+	} else if (is_svn_repo($src)) {
+		export_svn_repo($src, $dest);
+	} else {
+		return false;
+	}
+}
