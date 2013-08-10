@@ -23,9 +23,9 @@ class GitUtil {
 	const CLONE_CMD_TMPL = "git clone -v %s %s";
 	const EXPORT_CMD_TMPL = "git archive --remote=%s --prefix=%s/ master | tar -x -C %s";
 	const FETCH_CMD_TMPL = "git fetch %s";
-	const INIT_SUBMODULES_CMD = "git submodule update --init";
+	const INIT_SUBMODULES_CMD = "git submodule update --init --rebase";
 	const MERGE_CMD_TMPL = "git merge %s/%s";
-	const UPDATE_SUBMODULES_CMD = 'git submodule update --merge';
+	const UPDATE_SUBMODULES_CMD = 'git submodule update --rebase';
 
 	/**
 	 * Clone a git repository.
@@ -40,10 +40,7 @@ class GitUtil {
 		passthru($cloneCmd);
 
 		if ($initSubModules) {
-			$oldDir = getcwd();
-			chdir($path);
-			passthru(self::INIT_SUBMODULES_CMD);
-			chdir($oldDir);
+			self::initSubmodules($path);
 		}
 	}
 
@@ -151,6 +148,18 @@ class GitUtil {
 		chdir($origCwd);
 
 		return $files;
+	}
+
+	/**
+	 * Initialize the submodules of the repo at the specified path.
+	 *
+	 * @param string $path
+	 */
+	public static function initSubmodules($path) {
+		$oldDir = getcwd();
+		chdir($path);
+		passthru(self::INIT_SUBMODULES_CMD);
+		chdir($oldDir);
 	}
 
 	/**
@@ -264,6 +273,15 @@ function export_git_repo($path, $output, $prefix = null) {
 		$output = dirname($output);
 	}
 	GitUtil::export($path, $output, $prefix);
+}
+
+/**
+ * Initialize any submodules for the repo at the given path.
+ *
+ * @param string $path
+ */
+function init_git_repo_submodules($path) {
+	GitUtil::initSubmodules($path);
 }
 
 /**
