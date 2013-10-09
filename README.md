@@ -34,9 +34,9 @@ List of functions provided by Fun Box
 
 ### announceWait
 
-    announceWait($waitTime, $message = 'Commencing');
-
 Output a countdown to the command line.
+
+    announceWait($waitTime, $message = 'Commencing');
 
  -  @param **waitTime** _integer_ Number of seconds to count down before
 continuing.
@@ -44,8 +44,8 @@ continuing.
 
 ### passwordPrompt
 
-    passwordPrompt($prompt = 'password: ');
-
 Prompt the user for a password from the command line.
+
+    passwordPrompt($prompt = 'password: ');
 
  -  @param **prompt** _string_ The prompt for the user.
