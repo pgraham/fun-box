@@ -32,17 +32,20 @@ provide function autoloading. Once initialized, functions are included using the
 
 List of functions provided by Fun Box
 
-### announceWait($waitTime, $message = 'Commencing');
+### announceWait
 
 Output a countdown to the command line.
 
-**@param** _waitTime_ {integer} Number of seconds to count down before
+@param **waitTime** _integer_ Number of seconds to count down before
 continuing.
+@param **message** _string_ What will happen when the countdown is complete.
 
-**@param** _message_ {string} What will happen when the countdown is complete.
+    announceWait($waitTime, $message = 'Commencing');
 
-### passwordPrompt($prompt = 'password: ');
+### passwordPrompt
 
 Prompt the user for a password from the command line.
 
-**@param** _prompt_ {string} The prompt for the user.
+@param **prompt** _string_ The prompt for the user.
+
+    passwordPrompt($prompt = 'password: ');
