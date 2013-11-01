@@ -26,10 +26,10 @@ class GetCmdln {
 	const LONG_OPT_RE = '/--([^=]+)(?:=(\S+))?/';
 
 	/**
-	* This function retrieves command line options and arguments.	Return format is 
+	* This function retrieves command line options and arguments.	Return format is
 	* a stdClass instance with three properties:
 	*
-	*  -  `opt` : array in the format of getopt() but arguments don't need to be 
+	*  -  `opt` : array in the format of getopt() but arguments don't need to be
 	*             specified
 	*  -  `argv`: $argv - `opt`
 	*  -  `argc`: Number of arguments in `argv`
