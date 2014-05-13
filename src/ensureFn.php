@@ -26,8 +26,8 @@ class EnsureFns {
 	/**
 	 * Ensure that the specified functions are loaded.
 	 *
-	 * This function will accepted any number of strings or array of strings, 
-	 * nested to any level and will assume all string values encounted to be the 
+	 * This function will accepted any number of strings or array of strings,
+	 * nested to any level and will assume all string values encounted to be the
 	 * name of a function to load.
 	 */
 	public static function ensureFn() {
