@@ -10,6 +10,10 @@
 			"email": "philip@zeptech.ca"
 		}
 	],
+	"require": {
+		"php": ">=5.4.0",
+		"zeptech/utility": "dev-master"
+	},
 	"autoload": {
 		"files": [ "src/ensureFn.php" ],
 		"psr-0": { "FunBox": "src/" }
