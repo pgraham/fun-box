@@ -10,6 +10,7 @@
  * at the link below.
  * =============================================================================
  *
+ * @author Philip Graham <philip@zeptech.ca>
  * @license http://www.opensource.org/licenses/bsd-license.php
  */
 
@@ -17,15 +18,28 @@
  * Simple function that will prompt the user for a password.
  *
  * @param string $prompt
- *          The prompt for the user.  Default = 'password:'
+ *	 The prompt for the user.  Default = 'password:'
+ * @param string $default
+ *	 The default value to return if the user enters an empty string
  * @return string The inputted password
- * @author Philip Graham <philip@zeptech.ca>
  */
-function passwordPrompt($prompt = 'password: ') {
-  $command = "/usr/bin/env bash -c 'read -s -p \""
-    . addslashes($prompt)
-    . "\" mypassword && echo \$mypassword'";
-  $password = trim(shell_exec($command));
-  echo "\n";
-  return $password;
+function passwordPrompt($prompt = 'password', $default = '') {
+	$prompt = String($prompt)->trim()->trim(':');
+
+	if ($default) {
+		$prompt = String("$prompt ($default): ");
+	} else {
+		$prompt = String("$prompt: ");
+	}
+
+	$command = "/usr/bin/env bash -c 'read -s -p \""
+		. addslashes($prompt)
+		. "\" mypassword && echo \$mypassword'";
+	$password = trim(shell_exec($command));
+	echo "\n";
+
+	if ($password === '') {
+		return $default;
+	}
+	return $password;
 }
