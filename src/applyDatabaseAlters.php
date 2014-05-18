@@ -11,12 +11,12 @@
  * =============================================================================
  *
  * @license http://www.opensource.org/licenses/bsd-license.php
+ * @author Philip Graham <philip@zeptech.ca>
  */
 
 /**
  * This function applies a series of database alters to a MySQL database.
  *
- * @author Philip Graham <philip@zeptech.ca>
  *
  * @param string $user The username with which to connect to the database.
  * @param string $pass The password with which to connect to the database.
