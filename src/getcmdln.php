@@ -31,20 +31,36 @@ class GetCmdln {
 	*
 	*  -  `opt` : array in the format of getopt() but arguments don't need to be
 	*             specified
-	*  -  `argv`: $argv - `opt`
+	*  -  `argv`: non option arguments first element will be the invoked command
 	*  -  `argc`: Number of arguments in `argv`
 	*
-	* @param string $options `options` argument to getopt()
-	* @param array $longopts `longopts` argument to getopt()
+	* @param array $argv
+	*   The command line arguments array to parse. The element at array 0 is 
+	*   expected to be the command.
+	* @param array $expectedOpts
+	*   List of supported options. Any not specified on `$argv` will have a value 
+	*   set to false rather than being unset in the opt array.
 	*/
-	public static function parse($argv, $options, $longopts = array()) {
+	public static function parse($argv, array $expectedOpts = []) {
 		$opts = array();
 		$args = array(array_shift($argv));
 		foreach ($argv as $arg) {
 			if (preg_match(self::LONG_OPT_RE, $arg, $matches)) {
-				$opts[$matches[1]] = $matches[2];
+				$optName = $matches[1];
+				if (isset($matches[2])) {
+					$optVal = $matches[2];
+				} else {
+					$optVal = true;
+				}
+				$opts[$optName] = $optVal;
 			} else {
 				$args[] = $arg;
+			}
+		}
+
+		foreach ($expectedOpts as $opt) {
+			if (!isset($opts[$opt])) {
+				$opts[$opt] = false;
 			}
 		}
 
@@ -63,7 +79,7 @@ namespace {
 	/**
 	 * Global namespace alias for GetCmdln::parse. Only supports long options.
 	 */
-	function getcmdln($argv, $longopts = array()) {
-		return zpt\fn\GetCmdln::parse($argv, '', $longopts);
+	function getcmdln($argv, $expectedOpts = []) {
+		return zpt\fn\GetCmdln::parse($argv, $expectedOpts);
 	}
 }
