@@ -22,6 +22,7 @@ namespace zpt\fn {
 class EnsureFns {
 
 	public static $fns = array();
+	private static $gitIncluded = false;
 
 	/**
 	 * Ensure that the specified functions are loaded.
@@ -44,6 +45,11 @@ class EnsureFns {
 	}
 
 	private static function inc($fn) {
+		if (String($fn)->startsWith('git_')) {
+			self::incGit();
+			return;
+		}
+
 		if (in_array($fn, self::$fns)) {
 			return;
 		}
@@ -54,6 +60,13 @@ class EnsureFns {
 			self::$fns[] = $fn;
 		} else {
 			throw new \Exception("Unable to load function $fn, it does not exist.");
+		}
+	}
+
+	private static function incGit() {
+		if (!self::$gitIncluded) {
+			require __DIR__ . '/GitUtil.php';
+			self::$gitIncluded = true;
 		}
 	}
 }

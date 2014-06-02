@@ -358,7 +358,7 @@ namespace { // Global namespace
  * @param string $repo Path to the repository to clone.
  * @param string $path Path where the repository is to be cloned.
  */
-function clone_git_repo($repo, $path, $initSubModules = false) {
+function git_clone($repo, $path, $initSubModules = false) {
 	GitUtil::cloneRepo($repo, $path, $initSubModules);
 }
 
@@ -370,7 +370,7 @@ function clone_git_repo($repo, $path, $initSubModules = false) {
  * @param string $prefix Subdirectory of output directory into which repository
  *	 will be exported
  */
-function export_git_repo($path, $output, $prefix = null) {
+function git_export($path, $output, $prefix = null) {
 	if ($prefix === null) {
 		$prefix = basename($output);
 		$output = dirname($output);
@@ -383,7 +383,7 @@ function export_git_repo($path, $output, $prefix = null) {
  *
  * @param string $path
  */
-function init_git_repo_submodules($path) {
+function git_init_submodules($path) {
 	GitUtil::initSubmodules($path);
 }
 
@@ -393,7 +393,7 @@ function init_git_repo_submodules($path) {
  * @param string $path The path to the repository.
  * @return boolean
  */
-function is_git_repo($path) {
+function git_is_repo($path) {
 	return GitUtil::isRepo($path);
 }
 
@@ -403,7 +403,7 @@ function is_git_repo($path) {
  * @param string $path The path to the repository.
  * @return boolean
  */
-function is_git_repo_clean($path) {
+function git_is_clean($path) {
 	$status = GitUtil::getStatus($path);
 	return count($status) === 0;
 }
@@ -415,7 +415,7 @@ function is_git_repo_clean($path) {
  * @param string $tag
  * @param string $version
  */
-function move_git_tag($path, $tag, $version = 'HEAD') {
+function git_move_tag($path, $tag, $version = 'HEAD') {
 	GitUtil::moveTag($path, $tag, $version);
 }
 
@@ -426,7 +426,7 @@ function move_git_tag($path, $tag, $version = 'HEAD') {
  * @param string $tag
  * @param string $version
  */
-function tag_git_repo($path, $tag, $version = 'HEAD') {
+function git_tag($path, $tag, $version = 'HEAD') {
 	return GitUtil::tag($path, $tag, null, $version);
 }
 
@@ -437,7 +437,7 @@ function tag_git_repo($path, $tag, $version = 'HEAD') {
  * @param string $path The path to the repository to update.
  * @return boolean
  */
-function update_git_repo($path) {
+function git_update($path) {
 	$status = GitUtil::update($path);
 }
 
@@ -447,7 +447,7 @@ function update_git_repo($path) {
  * @param string $path The path to the repository to update.
  * @return boolean
  */
-function update_git_repo_submodules($path) {
+function git_update_submodules($path) {
 	$status = GitUtil::updateExternals($path);
 }
 

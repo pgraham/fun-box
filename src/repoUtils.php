@@ -29,7 +29,7 @@ require_once __DIR__ . '/SvnUtil.php';
  * @return boolean
  */
 function is_repo($path) {
-	return is_git_repo($path) || is_svn_repo($path);
+	return git_is_repo($path) || is_svn_repo($path);
 }
 
 /**
@@ -39,8 +39,8 @@ function is_repo($path) {
  * @return boolean
  */
 function repo_is_clean($path) {
-	if (is_git_repo($path)) {
-		return is_git_repo_clean($path);
+	if (git_is_repo($path)) {
+		return git_is_repo_clean($path);
 	} else if (is_svn_repo($path)) {
 		return is_svn_repo_clean($path);
 	} else {
@@ -61,11 +61,11 @@ function repo_is_clean($path) {
  * @return boolean
  */
 function repo_export($src, $dest, array $opts = null) {
-	if (is_git_repo($src)) {
+	if (git_is_repo($src)) {
 		$prefix = isset($opts['prefix'])
 			? $opts['prefix']
 			: null;
-		export_git_repo($src, $dest, $prefix);
+		git_export($src, $dest, $prefix);
 		return true;
 	} else if (is_svn_repo($src)) {
 		export_svn_repo($src, $dest);
