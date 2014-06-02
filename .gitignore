@@ -1,2 +1,5 @@
+# Composer files
 composer.lock
 vendor/
+
+test/git-test
