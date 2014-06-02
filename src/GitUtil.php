@@ -26,6 +26,7 @@ class GitUtil {
 	const COMMIT_CMD = 'git commit -am "{0}"';
 	const EXPORT_CMD_TMPL = "git archive --remote=%s --prefix=%s/ master | tar -x -C %s";
 	const FETCH_CMD_TMPL = "git fetch %s";
+	const INIT_CMD = 'git init';
 	const INIT_SUBMODULES_CMD = "git submodule update --init --rebase";
 	const MERGE_CMD_TMPL = "git merge %s/%s";
 	const UPDATE_SUBMODULES_CMD = 'git submodule update --rebase';
@@ -168,6 +169,15 @@ class GitUtil {
 		chdir($origCwd);
 
 		return $files;
+	}
+
+	/**
+	 * Initialize a repository.
+	 *
+	 * @param string $path
+	 */
+	public static function initRepo($path) {
+		return self::doInDir($path, self::INIT_CMD);
 	}
 
 	/**
