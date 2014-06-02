@@ -29,8 +29,9 @@ class GitUtil {
 	const INIT_CMD = 'git init';
 	const INIT_SUBMODULES_CMD = "git submodule update --init --rebase";
 	const MERGE_CMD_TMPL = "git merge %s/%s";
+	const MOVE_TAG_CMD = 'git tag -f {tag} {version}';
+	const TAG_CMD = 'git tag -a {tag} -m "{msg}" {version}';
 	const UPDATE_SUBMODULES_CMD = 'git submodule update --rebase';
-	const TAG_CMD = 'git tag -a {flags} {tag} -m "{msg}"';
 
 	/**
 	 * Clone a git repository.
@@ -208,31 +209,44 @@ class GitUtil {
 	}
 
 	/**
+	 * Move or create an existing lightweight tag.
+	 *
+	 * @param string $path
+	 *   The path to the repository to tag
+	 * @param string $tag
+	 *   The name of the tag to create or update
+	 * @param string $version
+	 *   Commit spec for the version of the repository to tag. Defaults to HEAD
+	 */
+	public static function moveTag($repo, $tag, $version = 'HEAD') {
+		$cmd = String(self::MOVE_TAG_CMD)->format([
+			'tag' => $tag,
+			'version' => $version
+		]);
+		return self::doInDir($repo, $cmd);
+	}
+
+	/**
 	 * Tag a repository.
 	 *
 	 * @param string $path
 	 *   The path to the repository
 	 * @param string $tag
-	 *   The tag
+	 *   The name of the tag to create.
 	 * @param string $msg
 	 *   Commit message for annotated tag
-	 * @param boolean $force
-	 *   Whether or not to move the tag if it already exists.
+	 * @param string $version
+	 *   Commit spec for the version of the repository to tag. Defaults to HEAD
 	 */
-	public static function tag($repo, $tag, $msg = null, $force = false) {
+	public static function tag($repo, $tag, $msg = null, $version = 'HEAD') {
 		if ($msg === null) {
 			$msg = "Tagging $tag";
-		}
-
-		$flags = '';
-		if ($force) {
-			$flags = '-f';
 		}
 
 		$cmd = String(self::TAG_CMD)->format([
 			'tag' => $tag,
 			'msg' => $msg,
-			'flags' => $flags
+			'version' => $version
 		]);
 		return self::doInDir($repo, $cmd);
 	}
@@ -392,6 +406,28 @@ function is_git_repo($path) {
 function is_git_repo_clean($path) {
 	$status = GitUtil::getStatus($path);
 	return count($status) === 0;
+}
+
+/**
+ * Create or move a lightweight tag
+ *
+ * @param string $repo
+ * @param string $tag
+ * @param string $version
+ */
+function move_git_tag($path, $tag, $version = 'HEAD') {
+	GitUtil::moveTag($path, $tag, $version);
+}
+
+/**
+ * Tag a git repository.
+ *
+ * @param string $repo
+ * @param string $tag
+ * @param string $version
+ */
+function tag_git_repo($path, $tag, $version = 'HEAD') {
+	return GitUtil::tag($path, $tag, null, $version);
 }
 
 /**

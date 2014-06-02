@@ -68,6 +68,7 @@ class GitUtilTest extends TestCase
 		file_put_contents("$this->gitRepo/README", "A test repo. Clobber moi.");
 		GitUtil::commit($this->gitRepo, "Updated readme");
 
-		GitUtil::tag($this->gitRepo, 'test-tag', null, true);
+		$r = GitUtil::moveTag($this->gitRepo, 'test-tag');
+		$this->assertTrue($r);
 	}
 }
