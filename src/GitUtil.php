@@ -21,7 +21,9 @@ namespace zpt\fn {
  */
 class GitUtil {
 
+	const ADD_ALL = 'git add -A .';
 	const CLONE_CMD_TMPL = "git clone -v %s %s";
+	const COMMIT_CMD = 'git commit -am "{0}"';
 	const EXPORT_CMD_TMPL = "git archive --remote=%s --prefix=%s/ master | tar -x -C %s";
 	const FETCH_CMD_TMPL = "git fetch %s";
 	const INIT_SUBMODULES_CMD = "git submodule update --init --rebase";
@@ -43,6 +45,23 @@ class GitUtil {
 		if ($initSubModules) {
 			self::initSubmodules($path);
 		}
+	}
+
+	/**
+	 * Commit all pending changes in a repository.
+	 *
+	 * @param string $repo
+	 *   Path to the repository.
+	 * @param string $message
+	 *   The commit message.
+	 */
+	public static function commit($repo, $msg) {
+		$cmds =[
+			String(self::ADD_ALL),
+			String(self::COMMIT_CMD)->format($msg)
+		];
+
+		return self::doInDir($repo, $cmds);
 	}
 
 	/**
@@ -241,6 +260,28 @@ class GitUtil {
 		passthru($updateCmd);
 
 		chdir($origCwd);
+	}
+
+	private static function doInDir($path, $cmds, array $output = []) {
+		if (!is_array($cmds)) {
+			$cmds = [ $cmds ];
+		}
+
+		$result = null;
+
+		$oldDir = getcwd();
+		chdir($path);
+		foreach ($cmds as $cmd) {
+			exec($cmd, $output, $result);
+
+			if ($result) {
+				break;
+			}
+
+		}
+		chdir($oldDir);
+
+		return !$result;
 	}
 }
 
