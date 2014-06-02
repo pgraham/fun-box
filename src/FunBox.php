@@ -19,12 +19,12 @@
 class FunBox {
 
 	/**
-	 * Initialization function. This function does nothing. A side effect of 
-	 * calling this function is that if it is the first time called and the FunBox 
+	 * Initialization function. This function does nothing. A side effect of
+	 * calling this function is that if it is the first time called and the FunBox
 	 * class is autoloaded then the ensureFn definition will be loaded.
 	 *
-	 * **NOTE** If FunBox is installed VIA composer there is no need to invoke 
-	 * zpt\fn\FunBox::init() as ensureFn.php will be added to the composer 
+	 * **NOTE** If FunBox is installed VIA composer there is no need to invoke
+	 * zpt\fn\FunBox::init() as ensureFn.php will be added to the composer
 	 * autoloader.
 	 */
 	public static function init() {}
