@@ -30,6 +30,7 @@ class GitUtil {
 	const INIT_SUBMODULES_CMD = "git submodule update --init --rebase";
 	const MERGE_CMD_TMPL = "git merge %s/%s";
 	const UPDATE_SUBMODULES_CMD = 'git submodule update --rebase';
+	const TAG_CMD = 'git tag -a {flags} {tag} -m "{msg}"';
 
 	/**
 	 * Clone a git repository.
@@ -204,6 +205,36 @@ class GitUtil {
 		$dotGitIsDir = is_dir($dotGitPath);
 
 		return $dotGitExists && $dotGitIsDir;
+	}
+
+	/**
+	 * Tag a repository.
+	 *
+	 * @param string $path
+	 *   The path to the repository
+	 * @param string $tag
+	 *   The tag
+	 * @param string $msg
+	 *   Commit message for annotated tag
+	 * @param boolean $force
+	 *   Whether or not to move the tag if it already exists.
+	 */
+	public static function tag($repo, $tag, $msg = null, $force = false) {
+		if ($msg === null) {
+			$msg = "Tagging $tag";
+		}
+
+		$flags = '';
+		if ($force) {
+			$flags = '-f';
+		}
+
+		$cmd = String(self::TAG_CMD)->format([
+			'tag' => $tag,
+			'msg' => $msg,
+			'flags' => $flags
+		]);
+		return self::doInDir($repo, $cmd);
 	}
 
 	/**
