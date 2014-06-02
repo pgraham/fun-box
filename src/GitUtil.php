@@ -12,6 +12,7 @@
  *
  * @license http://www.opensource.org/licenses/bsd-license.php
  */
+namespace zpt\fn {
 
 /**
  * Static interface for interacting with a git repository.
@@ -243,11 +244,17 @@ class GitUtil {
 	}
 }
 
+} // End zpt\fn namespace
+
 /*
  * =============================================================================
  * Shortcut functions
  * =============================================================================
  */
+
+namespace { // Global namespace
+
+	use zpt\fn\GitUtil;
 
 /**
  * Clone a git repository.
@@ -325,3 +332,5 @@ function update_git_repo($path) {
 function update_git_repo_submodules($path) {
 	$status = GitUtil::updateExternals($path);
 }
+
+} // End global namespace

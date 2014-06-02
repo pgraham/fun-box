@@ -16,7 +16,8 @@
 	},
 	"autoload": {
 		"files": [ "src/ensureFn.php" ],
-		"psr-0": { "FunBox": "src/" }
+		"psr-0": { "FunBox": "src/" },
+		"psr-4": { "zpt\\fn\\": "src/" }
 	},
 	"minimum-stability": "dev",
 	"require": {
