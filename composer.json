@@ -17,5 +17,9 @@
 	"autoload": {
 		"files": [ "src/ensureFn.php" ],
 		"psr-0": { "FunBox": "src/" }
+	},
+	"minimum-stability": "dev",
+	"require": {
+		"zeptech/utility": "dev-master"
 	}
 }
