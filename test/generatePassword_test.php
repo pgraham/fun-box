@@ -31,7 +31,7 @@ class GeneratePasswordTest extends TestCase {
 
 		$this->assertEquals(15, strlen($password));
 
-		$reCharSet = '[^' 
+		$reCharSet = '[^'
 		           . preg_quote(zpt\fn\PasswordGenerator::DEFAULT_CHARS, '/')
 		           . ']';
 
