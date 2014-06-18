@@ -1,4 +1,4 @@
-# Fun Box
+# FunBox
 
 A set of useful utility functions.
 
