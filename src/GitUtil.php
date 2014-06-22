@@ -24,7 +24,7 @@ class GitUtil {
 	const ADD_ALL = 'git add -A .';
 	const CLONE_CMD_TMPL = "git clone -v %s %s";
 	const COMMIT_CMD = 'git commit -am "{0}"';
-	const EXPORT_CMD_TMPL = "git archive --remote=%s --prefix=%s/ master | tar -x -C %s";
+	const EXPORT_CMD_TMPL = "git archive --remote={src} --prefix={pre}/ {ver} | tar -x -C {tgt}";
 	const FETCH_CMD_TMPL = "git fetch %s";
 	const INIT_CMD = 'git init';
 	const INIT_SUBMODULES_CMD = "git submodule update --init --rebase";
@@ -70,15 +70,18 @@ class GitUtil {
 	/**
 	 * Export a git repository.
 	 *
-	 * @param string $path
-	 * @param string $output
+	 * @param string $source
+	 * @param string $target
 	 * @param string $prefix
+	 * @param string $version
 	 */
-	public static function export($path, $output, $prefix) {
-		$exportCmd = sprintf(self::EXPORT_CMD_TMPL,
-			$path,
-			$prefix,
-			$output);
+	public static function export($source, $target, $prefix, $version = 'HEAD') {
+		$exportCmd = String(self::EXPORT_CMD_TMPL)->format([
+			'src' => $source,
+			'tgt' => $target,
+			'pre' => $prefix,
+			'ver' => $version
+		]);
 		passthru($exportCmd);
 	}
 
@@ -370,12 +373,12 @@ function git_clone($repo, $path, $initSubModules = false) {
  * @param string $prefix Subdirectory of output directory into which repository
  *	 will be exported
  */
-function git_export($path, $output, $prefix = null) {
+function git_export($path, $output, $prefix = null, $version = 'HEAD') {
 	if ($prefix === null) {
 		$prefix = basename($output);
 		$output = dirname($output);
 	}
-	GitUtil::export($path, $output, $prefix);
+	GitUtil::export($path, $output, $prefix, $version);
 }
 
 /**
