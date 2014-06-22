@@ -40,7 +40,7 @@ function is_repo($path) {
  */
 function repo_is_clean($path) {
 	if (git_is_repo($path)) {
-		return git_is_repo_clean($path);
+		return git_is_clean($path);
 	} else if (is_svn_repo($path)) {
 		return is_svn_repo_clean($path);
 	} else {
