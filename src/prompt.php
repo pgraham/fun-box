@@ -14,8 +14,19 @@
  * @param string $prompt
  * $return string
  */
-function prompt($prompt) {
+function prompt($prompt, $default = '') {
+	$prompt = String($prompt)->trim()->trim(':');
+
+	if ($default) {
+		$prompt = String("$prompt ($default): ");
+	} else {
+		$prompt = String("$prompt: ");
+	}
+
 	echo $prompt;
-	$line = fgets(STDIN);
+	$line = trim(fgets(STDIN));
+	if ($line === '') {
+		return $default;
+	}
 	return $line;
 }
