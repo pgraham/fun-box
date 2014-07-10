@@ -35,10 +35,10 @@ class GetCmdln {
 	*  -  `argc`: Number of arguments in `argv`
 	*
 	* @param array $argv
-	*   The command line arguments array to parse. The element at array 0 is 
+	*   The command line arguments array to parse. The element at array 0 is
 	*   expected to be the command.
 	* @param array $expectedOpts
-	*   List of supported options. Any not specified on `$argv` will have a value 
+	*   List of supported options. Any not specified on `$argv` will have a value
 	*   set to false rather than being unset in the opt array.
 	*/
 	public static function parse($argv, array $expectedOpts = []) {
