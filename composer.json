@@ -10,6 +10,7 @@
 			"email": "philip@zeptech.ca"
 		}
 	],
+	"minimum-stability": "dev",
 	"require": {
 		"php": ">=5.4.0",
 		"zeptech/utility": "dev-master"
@@ -18,9 +19,5 @@
 		"files": [ "src/ensureFn.php" ],
 		"psr-0": { "FunBox": "src/" },
 		"psr-4": { "zpt\\fn\\": "src/" }
-	},
-	"minimum-stability": "dev",
-	"require": {
-		"zeptech/utility": "dev-master"
 	}
 }
